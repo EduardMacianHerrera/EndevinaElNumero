@@ -26,5 +26,11 @@ public class RecordsActivity extends AppCompatActivity {
             records.add(new Record(nombre,intentos));
         }
 
+        TextView texto = findViewById(R.id.textView5);
+        for (Record record:
+             records) {
+            texto.append(record.getNombre()+ " : "+record.getIntentos()+"\n");
+        }
+
     }
 }
