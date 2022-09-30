@@ -7,6 +7,7 @@ import androidx.fragment.app.DialogFragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.method.ScrollingMovementMethod;
@@ -21,6 +22,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     int intentos = 0;
+    int intentosRecord = 100;
+    int numRandom = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +31,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Random random = new Random();
-        int numRandom = random.nextInt(11);
+        numRandom = random.nextInt(11);
 
         Button button = findViewById(R.id.button);
         EditText campo = findViewById(R.id.campo);
         TextView textoCampo = findViewById(R.id.textView);
         textoCampo.setMovementMethod(new ScrollingMovementMethod());
         TextView textoIntentos = findViewById(R.id.intentos);
+
+        Button buttonRecords = findViewById(R.id.recordsButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,12 +63,21 @@ public class MainActivity extends AppCompatActivity {
                                 .setTitle("CORRECTO")
                                 .setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-
+                                        if (intentos < intentosRecord){
+                                            intentosRecord = intentos;
+                                        }
+                                        intentos = 0;
+                                        textoCampo.setText("");
+                                        textoIntentos.setText("");
+                                        campo.setText("");
+                                        Random random = new Random();
+                                        numRandom = random.nextInt(11);
                                     }
                                 });
                         AlertDialog dialog = builder.create();
                         dialog.show();
                     }
+                    campo.setText("");
 
                     textoCampo.append(texto);
                     Toast toast = Toast.makeText(context,texto,Toast.LENGTH_LONG);
@@ -71,32 +85,37 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     textoCampo.append("No has introducido un número\n");
                 }
+            }
+        });
 
+        buttonRecords.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent recordsIntent = new Intent(MainActivity.this, RecordsActivity.class);
+                EditText inputName = new EditText(MainActivity.this);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("¿Quieres añadir tu récord?")
+                        .setTitle("").setView(inputName).setNegativeButton("NO",new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id) {
+                                startActivity(recordsIntent);
+                            }})
+                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                recordsIntent.putExtra("nombre",inputName.getText().toString());
+                                recordsIntent.putExtra("intentos",intentosRecord);
+                                startActivity(recordsIntent);
+                            }
+                        });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
 
 
             }
         });
 
-    }
-}
 
-//class DialogoCorrecto extends DialogFragment {
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        // Use the Builder class for convenient dialog construction
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder.setMessage("Correcto")
-//                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        // START THE GAME!
-//                    }
-//                })
-//                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        // User cancelled the dialog
-//                    }
-//                });
-//        // Create the AlertDialog object and return it
-//        return builder.create();
-//    }
-//}
+    }
+
+}
