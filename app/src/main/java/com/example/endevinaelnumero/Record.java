@@ -25,4 +25,10 @@ public class Record {
     public void setIntentos(int intentos) {
         this.intentos = intentos;
     }
+
+    @Override
+    public String toString() {
+        return nombre +
+                " : " + intentos;
+    }
 }
