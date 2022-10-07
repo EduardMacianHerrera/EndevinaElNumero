@@ -12,6 +12,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RecordsActivity extends AppCompatActivity {
 
@@ -28,6 +29,8 @@ public class RecordsActivity extends AppCompatActivity {
         if (intentos != 0){
             records.add(new Record(nombre,intentos));
         }
+
+        Collections.sort(records, new Record());
 
         TableLayout tableLayout = findViewById(R.id.tableLayout);
 
