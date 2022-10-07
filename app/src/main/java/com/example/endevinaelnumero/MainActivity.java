@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
                                 recordsIntent.putExtra("nombre",inputName.getText().toString());
                                 recordsIntent.putExtra("intentos",intentosRecord);
+                                intentosRecord = 100;
                                 startActivity(recordsIntent);
                             }
                         });
