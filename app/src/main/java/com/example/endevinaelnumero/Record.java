@@ -1,6 +1,8 @@
 package com.example.endevinaelnumero;
 
-public class Record {
+import java.util.Comparator;
+
+public class Record implements Comparator<Record> {
 
     String nombre;
     int intentos;
@@ -8,6 +10,10 @@ public class Record {
     public Record(String nombre, int intentos) {
         this.nombre = nombre;
         this.intentos = intentos;
+    }
+
+    Record(){
+
     }
 
     public String getNombre() {
@@ -24,5 +30,10 @@ public class Record {
 
     public void setIntentos(int intentos) {
         this.intentos = intentos;
+    }
+
+    @Override
+    public int compare(Record record, Record t1) {
+        return record.getIntentos() - t1.getIntentos();
     }
 }

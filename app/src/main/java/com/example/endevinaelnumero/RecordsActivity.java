@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RecordsActivity extends AppCompatActivity {
 
@@ -26,5 +27,6 @@ public class RecordsActivity extends AppCompatActivity {
             records.add(new Record(nombre,intentos));
         }
 
+        Collections.sort(records, new Record());
     }
 }
