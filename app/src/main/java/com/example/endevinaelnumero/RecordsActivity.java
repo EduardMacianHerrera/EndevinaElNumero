@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RecordsActivity extends AppCompatActivity {
 
@@ -33,6 +34,7 @@ public class RecordsActivity extends AppCompatActivity {
             records.add(new Record(nombre,intentos));
         }
 
+        Collections.sort(records, new Record());
         adapter = new ArrayAdapter<Record>(this, R.layout.list_item,records);
 
         ListView lv = findViewById(R.id.lista);

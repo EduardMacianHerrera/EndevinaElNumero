@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         buttonRecords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent recordsIntent = new Intent(MainActivity.this, RecordsActivity.class);
                 EditText inputName = new EditText(MainActivity.this);
 
@@ -104,12 +105,14 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
                                 recordsIntent.putExtra("nombre",inputName.getText().toString());
                                 recordsIntent.putExtra("intentos",intentosRecord);
+                                intentosRecord = 100;
                                 startActivity(recordsIntent);
                             }
                         });
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
 
 
             }
